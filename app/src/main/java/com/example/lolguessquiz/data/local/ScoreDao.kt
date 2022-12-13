@@ -10,10 +10,10 @@ interface ScoreDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateScores(
-        scores: ScoreModel
+        scores: ScoreModelEntity
     )
 
-    @Query("SELECT * FROM ScoreModel")
-    suspend fun getAllScores(): ScoreModel
+    @Query("SELECT * FROM ScoreModelEntity")
+    suspend fun getAllScores(): ScoreModelEntity
 
 }
