@@ -16,4 +16,5 @@ interface ScoreDao {
     @Query("SELECT * FROM ScoreModelEntity")
     suspend fun getAllScores(): ScoreModelEntity
 
+
 }
