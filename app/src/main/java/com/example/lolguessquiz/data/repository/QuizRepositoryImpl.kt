@@ -19,7 +19,6 @@ class QuizRepositoryImpl @Inject constructor(
 
     override suspend fun getScores(): Flow<Resource<ScoreModel>> {
         return flow {
-            emit(Resource.Loading(true))
             val localScores = dao.getAllScores()
             emit(Resource.Success(
                 data = localScores.toScoreModel()
@@ -27,7 +26,6 @@ class QuizRepositoryImpl @Inject constructor(
             val isDbEmpty = localScores.equals(null)
             val shouldJustLoadFromCache = !isDbEmpty
             if(shouldJustLoadFromCache){
-                emit(Resource.Loading(false))
                 return@flow
             }
             try {
@@ -48,7 +46,6 @@ class QuizRepositoryImpl @Inject constructor(
             emit(Resource.Success(
                 data = localScores2.toScoreModel()
             ))
-            emit(Resource.Loading(false))
         }
     }
 
