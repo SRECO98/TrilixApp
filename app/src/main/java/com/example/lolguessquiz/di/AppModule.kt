@@ -19,8 +19,7 @@ object AppModule {
         return Room.databaseBuilder(
             app,
             ScoreDatabase::class.java,
-            "stockdb.db",
+            "score.db",
         ).build()
     }
-
 }
