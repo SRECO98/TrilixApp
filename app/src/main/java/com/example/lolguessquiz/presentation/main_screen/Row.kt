@@ -1,12 +1,10 @@
 package com.example.lolguessquiz.presentation.main_screen
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowForward
@@ -18,6 +16,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlin.math.max
 
 @Composable
 fun RowQuiz(
@@ -37,7 +36,16 @@ fun RowQuiz(
                 .size(48.dp)
                 .clip(CircleShape)
                 .background(Color.LightGray)
-        )
+        ){
+            Text(
+                modifier = modifier
+                    .padding(4.dp),
+                text = maxResult.toString(),
+                textAlign = TextAlign.Center,
+                fontSize = 14.sp,
+                color = Color.Black,
+            )
+        }
         Spacer(modifier = modifier.width(8.dp))
         Text(
             text = nameOfQuiz,
