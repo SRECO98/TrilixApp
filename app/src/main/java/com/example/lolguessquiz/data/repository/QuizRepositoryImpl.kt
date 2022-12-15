@@ -1,6 +1,6 @@
 package com.example.lolguessquiz.data.repository
 
-import com.example.lolguessquiz.data.local.ScoreDatabase
+import com.example.lolguessquiz.data.local.ScoreDao
 import com.example.lolguessquiz.data.local.ScoreModelEntity
 import com.example.lolguessquiz.data.mapper.toScoreModel
 import com.example.lolguessquiz.domain.model.ScoreModel
@@ -12,20 +12,17 @@ import java.io.IOException
 import javax.inject.Inject
 
 class QuizRepositoryImpl @Inject constructor(
-    private val db: ScoreDatabase,
+    private val dao: ScoreDao,
 ): QuizRepository {
-
-    private val dao = db.dao
 
     override suspend fun getScores(): Flow<Resource<ScoreModel>> {
         return flow {
-            val localScores = dao.getAllScores()
-            emit(Resource.Success(
-                data = localScores.toScoreModel()
-            ))
-            val isDbEmpty = localScores.equals(null)
-            val shouldJustLoadFromCache = !isDbEmpty
-            if(shouldJustLoadFromCache){
+            val localScores: ScoreModelEntity? = dao.getAllScores()
+            val isDbEmpty = localScores == null
+            if(!isDbEmpty) {
+                emit(Resource.Success(
+                    data = localScores?.toScoreModel()
+                ))
                 return@flow
             }
             try {
@@ -44,7 +41,7 @@ class QuizRepositoryImpl @Inject constructor(
 
             val localScores2 = dao.getAllScores()
             emit(Resource.Success(
-                data = localScores2.toScoreModel()
+                data = localScores2?.toScoreModel()
             ))
         }
     }

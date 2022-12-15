@@ -1,14 +1,19 @@
 package com.example.lolguessquiz.presentation.main_screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.CutCornerShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowForward
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -16,56 +21,81 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.lolguessquiz.domain.model.ScoreModel
+import com.example.lolguessquiz.ui.theme.BackgroundMine
 import kotlin.math.max
 
 @Composable
 fun RowQuiz(
     nameOfQuiz: String,
     modifier: Modifier = Modifier,
-    maxResult: Int,
+    maxResult: Int? = null,
 ) {
-    Row(
-        modifier = modifier
-            .padding(start = 16.dp, end = 16.dp)
-            .fillMaxWidth()
-            .height(56.dp)
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier
+            .clip(RoundedCornerShape(12.dp))
+            .background(color = BackgroundMine)
+            .border(2.dp, color = Color.Black, RoundedCornerShape(16.dp))
     ){
-        Box(
+        Row(
             modifier = modifier
-                .padding(top = 4.dp, bottom = 4.dp)
-                .size(48.dp)
-                .clip(CircleShape)
-                .background(Color.LightGray)
+                .fillMaxWidth()
+                .height(150.dp)
+                .padding(start = 16.dp, end = 16.dp)
+                .background(ScoreModel.noteColors.random())
         ){
-            Text(
+            Box(
                 modifier = modifier
-                    .padding(4.dp),
-                text = maxResult.toString(),
-                textAlign = TextAlign.Center,
-                fontSize = 14.sp,
-                color = Color.Black,
-            )
-        }
-        Spacer(modifier = modifier.width(8.dp))
-        Text(
-            text = nameOfQuiz,
-            modifier = modifier
-                .padding(top = 4.dp, bottom = 4.dp),
-            textAlign = TextAlign.Center,
-            fontSize = 12.sp,
-            fontFamily = FontFamily.SansSerif
-        )
-        Spacer(modifier = modifier.width(8.dp))
-        IconButton(
-            modifier = modifier.padding(end = 8.dp),
-            onClick = {
-                //
+                    .padding(top = 47.dp, bottom = 47.dp, start = 16.dp)
+                    .size(56.dp)
+                    .clip(CircleShape)
+                    .background(Color.LightGray)
+                    .border(2.dp, color = Color.Black, RoundedCornerShape(16.dp))
+            ){
+                Text(
+                    modifier = modifier.padding(start = 16.dp, top = 16.dp),
+                    text = maxResult.toString(),
+                    textAlign = TextAlign.Center,
+                    fontSize = 14.sp,
+                    color = Color.Black,
+                )
             }
-        ) {
-            Icon(
-                imageVector = Icons.Rounded.ArrowForward,
-                contentDescription = null,
-            )
+
+            Spacer(modifier = modifier.width(8.dp))
+
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxHeight())
+            {
+                Text(
+                    text = nameOfQuiz,
+                    modifier = modifier
+                        .padding(4.dp)
+                        .wrapContentHeight(),
+                    textAlign = TextAlign.Start,
+                    fontSize = 18.sp,
+                    fontFamily = FontFamily.SansSerif
+                )
+            }
+
+
+            Spacer(modifier = modifier.weight(1f))
+
+
+            IconButton(
+                modifier = modifier.padding(end = 8.dp),
+                onClick = {
+                    //
+                }
+            ) {
+                Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxHeight())
+                {
+                    Icon(
+                        imageVector = Icons.Rounded.ArrowForward,
+                        contentDescription = null,
+                    )
+                }
+            }
         }
     }
+
 }

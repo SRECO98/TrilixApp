@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">LoLGuessQuiz</string>
+    <string name="app_real_name">Trolix</string>
+    <string name="guess_the_champion">Guess the champion</string>
+    <string name="guess_the_passive">Guess the Passive</string>
+    <string name="guess_the_champ_by_spell">Guess the spell</string>
+    <string name="guess_the_spell_name">Guess the spell name</string>
+    <string name="exit_game">Exit game</string>
+
+
 </resources>
