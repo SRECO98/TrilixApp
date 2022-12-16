@@ -23,10 +23,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.lolguessquiz.domain.model.ScoreModel
 import com.example.lolguessquiz.ui.theme.BackgroundMine
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlin.math.max
 
 @Composable
 fun RowQuiz(
+    navigator: DestinationsNavigator,
     nameOfQuiz: String,
     modifier: Modifier = Modifier,
     maxResult: Int? = null,
@@ -84,7 +86,9 @@ fun RowQuiz(
             IconButton(
                 modifier = modifier.padding(end = 8.dp),
                 onClick = {
-                    //
+                    /*navigator.navigate(
+                        //create compose with argument string so we know what compsoe to navigate
+                    )*/
                 }
             ) {
                 Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxHeight())

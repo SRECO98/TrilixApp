@@ -52,7 +52,11 @@ class QuizRepositoryImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun getChampionPicture(): String{
+    override suspend fun getChampionPicture(nameOfChamp: String): String{
+
+    }
+
+    override suspend fun getChampionName(): String {
         return listOfChampionNames.random()
     }
 

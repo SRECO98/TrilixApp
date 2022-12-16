@@ -3,10 +3,10 @@ package com.example.lolguessquiz.presentation.guess_the_champ
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.createTextLayoutResult
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lolguessquiz.domain.repository.QuizRepository
-import com.example.lolguessquiz.util.Resource
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,17 +17,27 @@ class GuessTheChampViewModel @Inject constructor(
     var state by mutableStateOf(GuessTheChampStates())
 
     init {
-        state.link = getLink()
+        val nameOfChamp = getChampName()
+        state.nameOfChamp = nameOfChamp
+        state.link = getChampionPicture(nameOfChamp = nameOfChamp)
     }
 
-    //Calling function for getting API link.
-    fun getLink(): String{
-        var link: String = ""
+
+    //Calling function for getting link for picture of random champ.
+    fun getChampionPicture(nameOfChamp: String): String{
+        var result = ""
         viewModelScope.launch {
-            link = repository.getChampionPicture()
+            result = repository.getChampionPicture(nameOfChamp = nameOfChamp)
         }
-        return link
+        return result
     }
 
-
+    //Calling function for getting random champion.
+    fun getChampName(): String{
+        var name = ""
+        viewModelScope.launch {
+            name = repository.getChampionName()
+        }
+        return name
+    }
 }
