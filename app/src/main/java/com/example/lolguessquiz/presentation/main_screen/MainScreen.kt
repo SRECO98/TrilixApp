@@ -27,10 +27,12 @@ import com.example.lolguessquiz.MainActivity
 import com.example.lolguessquiz.R
 import com.example.lolguessquiz.domain.model.ScoreModel
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
 @Destination(start = true)
 fun MainScreen(
+    navigator: DestinationsNavigator,
     modifier: Modifier = Modifier,
     viewModel: MainScreenViewModel = hiltViewModel()
 ) {
@@ -47,24 +49,28 @@ fun MainScreen(
         ) {
             Spacer(modifier = Modifier.height(8.dp))
             RowQuiz(
+                navigator = navigator,
                 modifier = modifier,
                 nameOfQuiz = stringResource(id = R.string.guess_the_champion),
                 maxResult = state.scores?.maxScoreGuessChampion,
             )
             Spacer(modifier = Modifier.height(8.dp))
             RowQuiz(
+                navigator = navigator,
                 modifier = modifier,
                 nameOfQuiz = stringResource(id = R.string.guess_the_passive),
                 maxResult = state.scores?.maxScoreGuessPassive,
             )
             Spacer(modifier = Modifier.height(8.dp))
             RowQuiz(
+                navigator = navigator,
                 modifier = modifier,
                 nameOfQuiz = stringResource(id = R.string.guess_the_champ_by_spell),
                 maxResult = state.scores?.maxScoreGuessChampionFromSpell,
             )
             Spacer(modifier = Modifier.height(8.dp))
             RowQuiz(
+                navigator = navigator,
                 modifier = modifier,
                 nameOfQuiz = stringResource(id = R.string.guess_the_spell_name),
                 maxResult = state.scores?.maxScoreGuessSpellName,

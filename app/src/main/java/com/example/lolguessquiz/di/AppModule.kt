@@ -31,4 +31,5 @@ object AppModule {
     fun provideQuizRepository(db: ScoreDatabase): QuizRepository{
         return QuizRepositoryImpl(db.dao)
     }
+
 }
