@@ -1,13 +1,25 @@
 package com.example.lolguessquiz.presentation.guess_the_champ
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Scaffold
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.layout
+import androidx.compose.ui.semantics.SemanticsProperties.ImeAction
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.ImagePainter
 import coil.compose.rememberImagePainter
@@ -30,9 +42,45 @@ fun GuessTheChampScreen(
     )  {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = modifier
+            modifier = modifier.fillMaxWidth()
         )  {
-            CoilImage(state = state)
+            Box(
+                modifier = modifier.align(Alignment.CenterHorizontally)
+            ){
+                CoilImage(state = state)
+            }
+
+            Spacer(modifier = modifier.height(16.dp))
+
+            Row(
+                modifier = modifier
+            ) {
+                var text by remember { mutableStateOf("") }
+                val maxChars = 1
+
+                BasicTextField(
+                    value = text,
+                    modifier = modifier
+                        .border(
+                        width = 2.dp,
+                        brush = Brush.verticalGradient(listOf(Color.Black, Color.DarkGray)),
+                        shape = RoundedCornerShape(4.dp)
+                    )
+                        .height(54.dp)
+                        .background(Color.Transparent)
+                        .width(38.dp)
+                        .padding(4.dp)
+                        .shadow(2.dp),
+                    onValueChange = {
+                        if(it.length <= maxChars){
+                            text = it
+                        }
+                    },
+                    textStyle = TextStyle(color = Color.Black, fontSize = 24.sp, textAlign = TextAlign.Center),
+                    maxLines = 1,
+                    keyboardOptions = KeyboardOptions(imeAction = androidx.compose.ui.text.input.ImeAction.Next)
+                )
+            }
         }
     }
 }

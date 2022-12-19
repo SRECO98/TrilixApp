@@ -21,14 +21,17 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.lolguessquiz.R
 import com.example.lolguessquiz.domain.model.ScoreModel
 import com.example.lolguessquiz.presentation.destinations.GuessTheChampScreenDestination
 import com.example.lolguessquiz.ui.theme.BackgroundMine
+import com.example.lolguessquiz.util.AppNamesOfQuizes
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlin.math.max
 
 @Composable
 fun RowQuiz(
+    viewModel: MainScreenViewModel,
     navigator: DestinationsNavigator,
     nameOfQuiz: String,
     modifier: Modifier = Modifier,
@@ -87,9 +90,35 @@ fun RowQuiz(
             IconButton(
                 modifier = modifier.padding(end = 8.dp),
                 onClick = {
-                    navigator.navigate(
-                        GuessTheChampScreenDestination()
-                    )
+                    viewModel.state.quiz = nameOfQuiz
+                    when(viewModel.state.quiz){
+
+                        AppNamesOfQuizes.quizGuessChamp -> {
+                            navigator.navigate(
+                                GuessTheChampScreenDestination()
+                            )
+                        }
+
+                        AppNamesOfQuizes.quizGuessPassive -> {
+                            /*navigator.navigate(
+                                GuessTheChampScreenDestination()
+                            )*/
+                        }
+
+                        AppNamesOfQuizes.quizGuessChampBySpellPicture -> {
+                            /*navigator.navigate(
+                                GuessTheChampScreenDestination()
+                            )*/
+                        }
+
+                        AppNamesOfQuizes.quizGuessTheSpellName -> {
+                            /*navigator.navigate(
+                                GuessTheChampScreenDestination()
+                            )*/
+                        }
+                    }
+
+
                 }
             ) {
                 Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxHeight())

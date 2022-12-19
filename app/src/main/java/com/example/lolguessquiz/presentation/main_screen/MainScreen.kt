@@ -26,6 +26,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.lolguessquiz.MainActivity
 import com.example.lolguessquiz.R
 import com.example.lolguessquiz.domain.model.ScoreModel
+import com.example.lolguessquiz.util.AppNamesOfQuizes
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -49,30 +50,34 @@ fun MainScreen(
         ) {
             Spacer(modifier = Modifier.height(8.dp))
             RowQuiz(
+                viewModel = viewModel,
                 navigator = navigator,
                 modifier = modifier,
-                nameOfQuiz = stringResource(id = R.string.guess_the_champion),
+                nameOfQuiz = AppNamesOfQuizes.quizGuessChamp,
                 maxResult = state.scores?.maxScoreGuessChampion,
             )
             Spacer(modifier = Modifier.height(8.dp))
             RowQuiz(
+                viewModel = viewModel,
                 navigator = navigator,
                 modifier = modifier,
-                nameOfQuiz = stringResource(id = R.string.guess_the_passive),
+                nameOfQuiz = AppNamesOfQuizes.quizGuessPassive,
                 maxResult = state.scores?.maxScoreGuessPassive,
             )
             Spacer(modifier = Modifier.height(8.dp))
             RowQuiz(
+                viewModel = viewModel,
                 navigator = navigator,
                 modifier = modifier,
-                nameOfQuiz = stringResource(id = R.string.guess_the_champ_by_spell),
+                nameOfQuiz = AppNamesOfQuizes.quizGuessChampBySpellPicture,
                 maxResult = state.scores?.maxScoreGuessChampionFromSpell,
             )
             Spacer(modifier = Modifier.height(8.dp))
             RowQuiz(
+                viewModel = viewModel,
                 navigator = navigator,
                 modifier = modifier,
-                nameOfQuiz = stringResource(id = R.string.guess_the_spell_name),
+                nameOfQuiz = AppNamesOfQuizes.quizGuessTheSpellName,
                 maxResult = state.scores?.maxScoreGuessSpellName,
             )
             Spacer(modifier = Modifier.height(16.dp))
