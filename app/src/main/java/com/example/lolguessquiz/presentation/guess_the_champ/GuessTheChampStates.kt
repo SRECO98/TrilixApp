@@ -5,4 +5,5 @@ data class GuessTheChampStates (
     var nameOfChamp: String = "",
     var currentBestScore: Int = 0,
     var guess: Int = 0, // user can guess 3 times.
+    var lettersInChampionName: Int = 0,
 )

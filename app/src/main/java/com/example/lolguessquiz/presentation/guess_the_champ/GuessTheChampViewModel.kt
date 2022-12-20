@@ -20,7 +20,8 @@ class GuessTheChampViewModel @Inject constructor(
     init {
         val nameOfChamp = getChampName()
         state.nameOfChamp = nameOfChamp
-        state.link = getChampionPicture(nameOfChamp = nameOfChamp)
+        state.link = getChampionPicture(nameOfChamp = state.nameOfChamp)
+        state.lettersInChampionName = getLettersOfChamp(nameOfChamp = state.nameOfChamp)
     }
 
 
@@ -40,5 +41,14 @@ class GuessTheChampViewModel @Inject constructor(
             name = repository.getChampionName()
         }
         return name
+    }
+
+    //getting muber of letters in the name of champ.
+    fun getLettersOfChamp(nameOfChamp: String): Int{
+        var letters: Int = 0
+        viewModelScope.launch {
+            letters = repository.getLettersFromChampion(champion = nameOfChamp)
+        }
+        return letters
     }
 }

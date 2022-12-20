@@ -12,4 +12,5 @@ interface QuizRepository {
     suspend fun getChampionPassive(): Flow<Resource<String>>
     suspend fun getChampionSpell(): Flow<Resource<String>>
     suspend fun getChampionName(): String
+    suspend fun getLettersFromChampion(champion: String): Int
 }

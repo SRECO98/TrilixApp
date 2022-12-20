@@ -4,6 +4,7 @@ import com.example.lolguessquiz.data.local.ScoreDao
 import com.example.lolguessquiz.data.local.ScoreModelEntity
 import com.example.lolguessquiz.data.mapper.toScoreModel
 import com.example.lolguessquiz.data.remote.ChampionData
+import com.example.lolguessquiz.data.remote.LettersInNameOfChampion
 import com.example.lolguessquiz.data.remote.listOfChampionNames
 import com.example.lolguessquiz.domain.model.ScoreModel
 import com.example.lolguessquiz.domain.repository.QuizRepository
@@ -58,6 +59,10 @@ class QuizRepositoryImpl @Inject constructor(
 
     override suspend fun getChampionName(): String {
         return listOfChampionNames.random()
+    }
+
+    override suspend fun getLettersFromChampion(champion: String): Int {
+        return LettersInNameOfChampion(champion = champion)
     }
 
     override suspend fun getChampionPassive(): Flow<Resource<String>> {
