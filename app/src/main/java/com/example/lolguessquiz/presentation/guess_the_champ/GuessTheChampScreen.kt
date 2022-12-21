@@ -24,6 +24,7 @@ import com.example.lolguessquiz.R
 import com.example.lolguessquiz.presentation.guess_the_champ.components.CheckLettersInTheWord
 import com.example.lolguessquiz.presentation.guess_the_champ.components.CoilImage
 import com.example.lolguessquiz.presentation.guess_the_champ.components.MineBasicTextField
+import com.example.lolguessquiz.presentation.guess_the_champ.components.TopAppBarGuessChamp
 import com.ramcosta.composedestinations.annotation.Destination
 
 @Composable
@@ -36,7 +37,7 @@ fun GuessTheChampScreen(
 
     Scaffold(
         topBar = {
-
+            TopAppBarGuessChamp(modifier = modifier)
         },
         modifier = modifier.padding(8.dp),
     )  {

@@ -3,6 +3,7 @@
     <string name="app_real_name">Trolix</string>
     <string name="exit_game">Exit game</string>
     <string name="next">Next</string>
+    <string name="guess_champ_title">Guess the Champ</string>
 
 
 </resources>
