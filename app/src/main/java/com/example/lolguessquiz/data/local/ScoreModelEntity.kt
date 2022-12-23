@@ -5,9 +5,6 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class ScoreModelEntity(
-    @PrimaryKey val id: Int? = null,
-    val maxScoreGuessChampion: Int? = null,
-    val maxScoreGuessPassive: Int? = null,
-    val maxScoreGuessChampionFromSpell: Int? = null,
-    val maxScoreGuessSpellName: Int? = null,
+    @PrimaryKey val id: String,
+    val score: Int,
 )

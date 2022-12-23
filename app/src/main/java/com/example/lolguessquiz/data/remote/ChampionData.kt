@@ -1,7 +1,7 @@
 package com.example.lolguessquiz.data.remote
 
-fun ChampionData(nameOfChampion: String): String = "http://ddragon.leagueoflegends.com/cdn/12.23.1/img/champion/${nameOfChampion}.png"
-fun LettersInNameOfChampion(champion: String): Int = champion.length
+fun getChampionUrl(nameOfChampion: String): String = "http://ddragon.leagueoflegends.com/cdn/12.23.1/img/champion/${nameOfChampion}.png"
+fun getChampionLength(champion: String): Int = champion.length
 
 val listOfChampionNames: List<String> = listOf(
 "Aatrox",

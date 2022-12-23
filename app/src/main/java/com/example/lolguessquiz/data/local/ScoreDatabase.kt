@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [ScoreModelEntity::class],
-    version = 1
+    version = 2
 )
 abstract class ScoreDatabase: RoomDatabase() {
     abstract val dao: ScoreDao

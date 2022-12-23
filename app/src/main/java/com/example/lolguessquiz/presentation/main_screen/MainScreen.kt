@@ -26,6 +26,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.lolguessquiz.MainActivity
 import com.example.lolguessquiz.R
 import com.example.lolguessquiz.domain.model.ScoreModel
+import com.example.lolguessquiz.presentation.destinations.GuessTheChampScreenDestination
 import com.example.lolguessquiz.util.AppNamesOfQuizes
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -48,39 +49,53 @@ fun MainScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = modifier
         ) {
-            Spacer(modifier = Modifier.height(8.dp))
             RowQuiz(
-                viewModel = viewModel,
-                navigator = navigator,
+                onClick = {
+                    viewModel.state.quiz = AppNamesOfQuizes.quizGuessChamp
+                    navigator.navigate(
+                        GuessTheChampScreenDestination()
+                    )
+                },
                 modifier = modifier,
                 nameOfQuiz = AppNamesOfQuizes.quizGuessChamp,
-                maxResult = state.scores?.maxScoreGuessChampion,
+                maxResult = state.scores?.score,
             )
-            Spacer(modifier = Modifier.height(8.dp))
+
             RowQuiz(
-                viewModel = viewModel,
-                navigator = navigator,
+                onClick = {
+                    viewModel.state.quiz = AppNamesOfQuizes.quizGuessChamp
+                    /*navigator.navigate(
+                        GuessTheChampScreenDestination()
+                    )*/
+                },
                 modifier = modifier,
                 nameOfQuiz = AppNamesOfQuizes.quizGuessPassive,
-                maxResult = state.scores?.maxScoreGuessPassive,
+                maxResult = state.scores?.score,
             )
-            Spacer(modifier = Modifier.height(8.dp))
+
             RowQuiz(
-                viewModel = viewModel,
-                navigator = navigator,
+                onClick = {
+                    viewModel.state.quiz = AppNamesOfQuizes.quizGuessChamp
+                    /*navigator.navigate(
+                        GuessTheChampScreenDestination()
+                    )*/
+                },
                 modifier = modifier,
                 nameOfQuiz = AppNamesOfQuizes.quizGuessChampBySpellPicture,
-                maxResult = state.scores?.maxScoreGuessChampionFromSpell,
+                maxResult = state.scores?.score,
             )
-            Spacer(modifier = Modifier.height(8.dp))
+
             RowQuiz(
-                viewModel = viewModel,
-                navigator = navigator,
+                onClick = {
+                    viewModel.state.quiz = AppNamesOfQuizes.quizGuessChamp
+                    /*navigator.navigate(
+                        GuessTheChampScreenDestination()
+                    )*/
+                },
                 modifier = modifier,
                 nameOfQuiz = AppNamesOfQuizes.quizGuessTheSpellName,
-                maxResult = state.scores?.maxScoreGuessSpellName,
+                maxResult = state.scores?.score,
             )
-            Spacer(modifier = Modifier.height(16.dp))
 
             TextButton(
                 onClick = {

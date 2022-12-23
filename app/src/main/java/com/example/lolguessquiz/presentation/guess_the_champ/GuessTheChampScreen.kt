@@ -1,29 +1,22 @@
 package com.example.lolguessquiz.presentation.guess_the_champ
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.layout
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.lolguessquiz.R
-import com.example.lolguessquiz.presentation.guess_the_champ.components.CheckLettersInTheWord
+import com.example.lolguessquiz.presentation.guess_the_champ.components.TextFieldsForWord
 import com.example.lolguessquiz.presentation.guess_the_champ.components.CoilImage
-import com.example.lolguessquiz.presentation.guess_the_champ.components.MineBasicTextField
 import com.example.lolguessquiz.presentation.guess_the_champ.components.TopAppBarGuessChamp
 import com.ramcosta.composedestinations.annotation.Destination
 
@@ -51,8 +44,11 @@ fun GuessTheChampScreen(
                 CoilImage(state = state)
             }
 
-            Spacer(modifier = modifier.height(16.dp))
-            CheckLettersInTheWord(letters = state.lettersInChampionName)
+            TextFieldsForWord(
+                modifier = Modifier.padding(top = 16.dp, bottom = 16.dp),
+                letters = state.lengthOfWord
+            )
+
             TextButton(
                 modifier = modifier
                     .padding(start = 50.dp, end = 50.dp)

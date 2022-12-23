@@ -24,18 +24,18 @@ import androidx.compose.ui.unit.sp
 import com.example.lolguessquiz.R
 import com.example.lolguessquiz.domain.model.ScoreModel
 import com.example.lolguessquiz.presentation.destinations.GuessTheChampScreenDestination
-import com.example.lolguessquiz.ui.theme.BackgroundMine
+import com.example.lolguessquiz.presentation.ui.theme.BackgroundMine
 import com.example.lolguessquiz.util.AppNamesOfQuizes
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import javax.sql.StatementEvent
 import kotlin.math.max
 
 @Composable
 fun RowQuiz(
-    viewModel: MainScreenViewModel,
-    navigator: DestinationsNavigator,
     nameOfQuiz: String,
     modifier: Modifier = Modifier,
     maxResult: Int? = null,
+    onClick: () -> Unit = {},
 ) {
     Box(
         contentAlignment = Alignment.Center,
@@ -43,6 +43,7 @@ fun RowQuiz(
             .clip(RoundedCornerShape(12.dp))
             .background(color = BackgroundMine)
             .border(2.dp, color = Color.Black, RoundedCornerShape(16.dp))
+            .padding(top = 8.dp, bottom = 8.dp)
     ){
         Row(
             modifier = modifier
@@ -89,37 +90,7 @@ fun RowQuiz(
 
             IconButton(
                 modifier = modifier.padding(end = 8.dp),
-                onClick = {
-                    viewModel.state.quiz = nameOfQuiz
-                    when(viewModel.state.quiz){
-
-                        AppNamesOfQuizes.quizGuessChamp -> {
-                            navigator.navigate(
-                                GuessTheChampScreenDestination()
-                            )
-                        }
-
-                        AppNamesOfQuizes.quizGuessPassive -> {
-                            /*navigator.navigate(
-                                GuessTheChampScreenDestination()
-                            )*/
-                        }
-
-                        AppNamesOfQuizes.quizGuessChampBySpellPicture -> {
-                            /*navigator.navigate(
-                                GuessTheChampScreenDestination()
-                            )*/
-                        }
-
-                        AppNamesOfQuizes.quizGuessTheSpellName -> {
-                            /*navigator.navigate(
-                                GuessTheChampScreenDestination()
-                            )*/
-                        }
-                    }
-
-
-                }
+                onClick = onClick,
             ) {
                 Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxHeight())
                 {

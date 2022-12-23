@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lolguessquiz.domain.repository.QuizRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,40 +16,21 @@ class GuessTheChampViewModel @Inject constructor(
     private val repository: QuizRepository
 ): ViewModel() {
 
-    var state by mutableStateOf(GuessTheChampStates())
+    var state by mutableStateOf(GuessTheChampState())
 
     init {
-        val nameOfChamp = getChampName()
-        state.nameOfChamp = nameOfChamp
-        state.link = getChampionPicture(nameOfChamp = state.nameOfChamp)
-        state.lettersInChampionName = getLettersOfChamp(nameOfChamp = state.nameOfChamp)
+        getChampionPicture()
     }
 
 
     //Calling function for getting link for picture of random champ.
-    fun getChampionPicture(nameOfChamp: String): String{
-        var result = ""
-        viewModelScope.launch {
-            result = repository.getChampionPicture(nameOfChamp = nameOfChamp)
+    fun getChampionPicture(){
+        viewModelScope.launch() {
+            val champion = repository.getChampionName()
+            val picture = repository.getChampionPicture(nameOfChamp = champion)
+            state.nameOfChamp = champion
+            state.link = picture
+            state.lengthOfWord = champion.length
         }
-        return result
-    }
-
-    //Calling function for getting random champion.
-    fun getChampName(): String{
-        var name = ""
-        viewModelScope.launch {
-            name = repository.getChampionName()
-        }
-        return name
-    }
-
-    //getting muber of letters in the name of champ.
-    fun getLettersOfChamp(nameOfChamp: String): Int{
-        var letters: Int = 0
-        viewModelScope.launch {
-            letters = repository.getLettersFromChampion(champion = nameOfChamp)
-        }
-        return letters
     }
 }

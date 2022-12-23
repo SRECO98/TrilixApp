@@ -1,4 +1,4 @@
-package com.example.lolguessquiz.ui.theme
+package com.example.lolguessquiz.presentation.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme

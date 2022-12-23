@@ -3,11 +3,12 @@ package com.example.lolguessquiz.data.repository
 import com.example.lolguessquiz.data.local.ScoreDao
 import com.example.lolguessquiz.data.local.ScoreModelEntity
 import com.example.lolguessquiz.data.mapper.toScoreModel
-import com.example.lolguessquiz.data.remote.ChampionData
-import com.example.lolguessquiz.data.remote.LettersInNameOfChampion
+import com.example.lolguessquiz.data.remote.getChampionUrl
+import com.example.lolguessquiz.data.remote.getChampionLength
 import com.example.lolguessquiz.data.remote.listOfChampionNames
 import com.example.lolguessquiz.domain.model.ScoreModel
 import com.example.lolguessquiz.domain.repository.QuizRepository
+import com.example.lolguessquiz.util.AppNamesOfQuizes
 import com.example.lolguessquiz.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -31,10 +32,8 @@ class QuizRepositoryImpl @Inject constructor(
             try {
                 dao.updateScores(
                     ScoreModelEntity(
-                        maxScoreGuessChampion = 0,
-                        maxScoreGuessPassive = 0,
-                        maxScoreGuessSpellName = 0,
-                        maxScoreGuessChampionFromSpell = 0,
+                        id = AppNamesOfQuizes.quizGuessChamp,
+                        score = 0
                     )
                 )
             }catch (e: IOException){
@@ -54,7 +53,7 @@ class QuizRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getChampionPicture(nameOfChamp: String): String{
-        return ChampionData(nameOfChampion = nameOfChamp)
+        return getChampionUrl(nameOfChampion = nameOfChamp)
     }
 
     override suspend fun getChampionName(): String {
@@ -62,7 +61,7 @@ class QuizRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getLettersFromChampion(champion: String): Int {
-        return LettersInNameOfChampion(champion = champion)
+        return getChampionLength(champion = champion)
     }
 
     override suspend fun getChampionPassive(): Flow<Resource<String>> {

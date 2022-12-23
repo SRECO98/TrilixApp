@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun MineBasicTextField(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.padding(start = 8.dp, end = 8.dp),
 ) {
     var text by remember { mutableStateOf("") }
     val maxChars = 1

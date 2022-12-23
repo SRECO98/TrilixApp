@@ -11,12 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import coil.compose.ImagePainter
 import coil.compose.rememberImagePainter
-import coil.transform.GrayscaleTransformation
 import com.example.lolguessquiz.R
-import com.example.lolguessquiz.presentation.guess_the_champ.GuessTheChampStates
+import com.example.lolguessquiz.presentation.guess_the_champ.GuessTheChampState
 
 @Composable
-fun CoilImage(state: GuessTheChampStates){
+fun CoilImage(state: GuessTheChampState){
     Box(
         modifier = Modifier
             .height(150.dp)

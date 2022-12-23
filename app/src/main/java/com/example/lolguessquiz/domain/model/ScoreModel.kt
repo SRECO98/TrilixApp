@@ -1,14 +1,9 @@
 package com.example.lolguessquiz.domain.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.example.lolguessquiz.ui.theme.*
+import com.example.lolguessquiz.presentation.ui.theme.*
 
 data class ScoreModel(
-    val maxScoreGuessChampion: Int? = null,
-    val maxScoreGuessPassive: Int? = null,
-    val maxScoreGuessChampionFromSpell: Int? = null,
-    val maxScoreGuessSpellName: Int? = null,
+    val score: Int
 ){
     companion object{
         val noteColors = listOf(RedOrange, LightGreen, Violet, BabyBlue, RedPink)
