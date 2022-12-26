@@ -4,6 +4,9 @@ data class GuessTheChampState (
     var link: String = "",
     var nameOfChamp: String = "",
     var currentBestScore: Int = 0,
-    var guess: Int = 0, // user can guess 3 times.
+    var currentScoreInGame: Int = 0,
+    var guess: Int = 3, // user can guess 3 times.
     var lengthOfWord: Int = 0,
+    var userWord: String = "",
+    var correctResult: Boolean = false,
 )
