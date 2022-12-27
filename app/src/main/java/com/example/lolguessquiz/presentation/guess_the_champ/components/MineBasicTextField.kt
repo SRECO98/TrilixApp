@@ -45,9 +45,10 @@ fun MineBasicTextField(
         onValueChange = {
             if (it.length <= maxChars) {
                 text = it
+                if(text != "")
                 state.userWord = (state.userWord.substring(0, index - 1) + it + state.userWord.substring(index, state.userWord.length)) //getting word from TextFields
+                val tetete = state.userWord
             }
-
         },
         textStyle = TextStyle(color = Color.Black, fontSize = 28.sp, textAlign = TextAlign.Center),
         maxLines = 1,

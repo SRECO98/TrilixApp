@@ -76,6 +76,7 @@ fun GuessTheChampScreen(
                             showDialog = true
                         }
                         state.correctResult = false
+                        state.userWord = viewModel.startingWord(state.lengthOfWord) //provjeriti
                     }
                 },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
