@@ -29,14 +29,6 @@ fun GuessTheChampScreen(
 ) {
     val state = viewModel.state
 
-    var showDialog by remember { mutableStateOf(false) }
-    if (showDialog) {
-        GameOver(
-            onClose = { showDialog = false },
-            state = state
-        )
-    }
-
     Scaffold(
         topBar = {
             TopAppBarGuessChamp(modifier = modifier)
@@ -47,6 +39,13 @@ fun GuessTheChampScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = modifier.fillMaxWidth()
         )  {
+
+            Text(
+                text = state.currentScoreInGame.toString(),
+                fontSize = 32.sp,
+                modifier = modifier.padding(top = 32.dp)
+            )
+
             Box(
                 modifier = modifier.align(Alignment.CenterHorizontally)
             ){
@@ -59,36 +58,13 @@ fun GuessTheChampScreen(
                 state = state,
             )
 
-            TextButton(
-                modifier = modifier
-                    .padding(start = 50.dp, end = 50.dp)
-                    .border(
-                        width = 2.dp,
-                        brush = Brush.verticalGradient(listOf(Color.Black, Color.DarkGray)),
-                        shape = RoundedCornerShape(4.dp)
-                    ),
-                onClick = {
-                    state.correctResult = correctnessOfWord(state.userWord)
-                    if(state.correctResult){
-                        viewModel.onEvent(GuessTheChampEvents.CheckResult(state.userWord))
-                        //animation for showing game over if state.guess == 0
-                        if(state.guess.equals(0)) {
-                            showDialog = true
-                        }
-                        state.correctResult = false
-                        state.userWord = viewModel.startingWord(state.lengthOfWord) //provjeriti
-                    }
-                },
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
+            MineTextButton(
+                modifier = modifier,
+                viewModel = viewModel,
+                state = state
+            )
 
-            ) {
-                Text(
-                    text = stringResource(id = R.string.next),
-                    textAlign = TextAlign.Center,
-                    fontSize = 14.sp,
-                    color = Color.DarkGray,
-                )
-            }
+
         }
     }
 }
@@ -103,5 +79,51 @@ fun correctnessOfWord(userWord: String): Boolean { //checking did user wrie the 
         }
     }
     return true
+}
+
+@Composable
+fun MineTextButton(
+    modifier: Modifier = Modifier,
+    viewModel: GuessTheChampViewModel,
+    state: GuessTheChampState
+){
+    var showDialog by remember { mutableStateOf(false) }
+    if (showDialog) {
+        GameOver(
+            onClose = { showDialog = false },
+            state = state
+        )
+    }
+
+    TextButton(
+        modifier = modifier
+            .padding(start = 50.dp, end = 50.dp)
+            .border(
+                width = 2.dp,
+                brush = Brush.verticalGradient(listOf(Color.Black, Color.DarkGray)),
+                shape = RoundedCornerShape(4.dp)
+            ),
+        onClick = {
+            state.correctResult = correctnessOfWord(state.userWord)
+            if(state.correctResult){
+                viewModel.onEvent(GuessTheChampEvents.CheckResult(state.userWord))
+                //animation for showing game over if state.guess == 0
+                if(state.guess.equals(0)) {
+                    showDialog = true
+                    viewModel.onEvent(GuessTheChampEvents.ScoreInGame(false))//this will be transfered to game over after cxlicking play again
+                }
+                state.userWord = viewModel.startingWord(state.lengthOfWord) //checking
+            }
+        },
+        colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
+
+        ) {
+        Text(
+            text = stringResource(id = R.string.next),
+            textAlign = TextAlign.Center,
+            fontSize = 14.sp,
+            color = Color.DarkGray,
+        )
+    }
 }
 

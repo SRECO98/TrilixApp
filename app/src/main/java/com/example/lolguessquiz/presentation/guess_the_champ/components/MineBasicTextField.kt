@@ -1,11 +1,13 @@
 package com.example.lolguessquiz.presentation.guess_the_champ.components
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -20,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.lolguessquiz.presentation.guess_the_champ.GuessTheChampState
 
+@SuppressLint("SuspiciousIndentation")
 @Composable
 fun MineBasicTextField(
     modifier: Modifier = Modifier.padding(start = 8.dp, end = 8.dp),
@@ -29,7 +32,7 @@ fun MineBasicTextField(
     var text by remember { mutableStateOf("") }
     val maxChars = 1
 
-    androidx.compose.foundation.text.BasicTextField(
+    BasicTextField(
         value = text,
         modifier = modifier
             .border(
@@ -45,9 +48,9 @@ fun MineBasicTextField(
         onValueChange = {
             if (it.length <= maxChars) {
                 text = it
-                if(text != "")
-                state.userWord = (state.userWord.substring(0, index - 1) + it + state.userWord.substring(index, state.userWord.length)) //getting word from TextFields
-                val tetete = state.userWord
+                if(text != ""){
+                    state.userWord = (state.userWord.substring(0, index - 1) + it + state.userWord.substring(index, state.userWord.length)) //getting word from TextFields
+                }
             }
         },
         textStyle = TextStyle(color = Color.Black, fontSize = 28.sp, textAlign = TextAlign.Center),
@@ -55,6 +58,6 @@ fun MineBasicTextField(
         keyboardOptions = KeyboardOptions(
             imeAction = ImeAction.Next,
             capitalization = KeyboardCapitalization.Sentences
-        )
+        ),
     )
 }

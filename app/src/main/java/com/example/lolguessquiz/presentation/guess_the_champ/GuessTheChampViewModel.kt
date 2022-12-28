@@ -29,10 +29,14 @@ class GuessTheChampViewModel @Inject constructor(
         when(event){
             is GuessTheChampEvents.CheckResult -> {
                 if (event.result.equals(state.nameOfChamp.uppercase(Locale.getDefault()))){
+                    updateScoreOnScreen(true)
                     getChampionPicture()
                     state.guess = 3
                 }else{
                     state.guess -= 1
+                    if(state.guess == 0){
+                        updateScoreOnScreen(false)
+                    }
                 }
             }
         }
@@ -53,6 +57,20 @@ class GuessTheChampViewModel @Inject constructor(
                 guess = 3,
             )
         }
+    }
+
+    fun updateScoreOnScreen(boolean: Boolean){
+            if(boolean){
+                val score = state.currentScoreInGame + 1
+                state = state.copy(
+                    currentScoreInGame = score
+                )
+            }else{
+                val score = 0
+                state = state.copy(
+                    currentScoreInGame = score
+                )
+            }
     }
 
     fun startingWord(length: Int): String{
