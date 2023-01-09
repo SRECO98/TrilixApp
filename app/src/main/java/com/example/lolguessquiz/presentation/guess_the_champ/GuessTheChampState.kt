@@ -7,6 +7,6 @@ data class GuessTheChampState (
     var currentScoreInGame: Int = 0,
     var guess: Int = 3, // user can guess 3 times.
     var lengthOfWord: Int = 0,
-    var userWord: String = "",
     var correctResult: Boolean = false,
+    var userWord: Array<String> = emptyArray(),
 )

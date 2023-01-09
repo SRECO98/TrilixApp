@@ -17,23 +17,22 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.lolguessquiz.presentation.guess_the_champ.GuessTheChampState
 
 @SuppressLint("SuspiciousIndentation")
 @Composable
 fun MineBasicTextField(
     modifier: Modifier = Modifier.padding(start = 8.dp, end = 8.dp),
-    index: Int,
-    state: GuessTheChampState,
+    value: String,
+    onValueChanged: (String) -> Unit
 ) {
-    var text by remember { mutableStateOf("") }
     val maxChars = 1
 
     BasicTextField(
-        value = text,
+        value = value,
         modifier = modifier
             .border(
                 width = 2.dp,
@@ -45,14 +44,7 @@ fun MineBasicTextField(
             .width(38.dp)
             .padding(4.dp)
             .shadow(2.dp),
-        onValueChange = {
-            if (it.length <= maxChars) {
-                text = it
-                if(text != ""){
-                    state.userWord = (state.userWord.substring(0, index - 1) + it + state.userWord.substring(index, state.userWord.length)) //getting word from TextFields
-                }
-            }
-        },
+        onValueChange = onValueChanged,
         textStyle = TextStyle(color = Color.Black, fontSize = 28.sp, textAlign = TextAlign.Center),
         maxLines = 1,
         keyboardOptions = KeyboardOptions(

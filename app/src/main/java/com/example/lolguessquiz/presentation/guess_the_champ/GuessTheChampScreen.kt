@@ -56,12 +56,13 @@ fun GuessTheChampScreen(
                 modifier = Modifier.padding(top = 16.dp, bottom = 16.dp),
                 letters = state.lengthOfWord,
                 state = state,
+                viewModel = viewModel,
             )
 
             MineTextButton(
                 modifier = modifier,
                 viewModel = viewModel,
-                state = state
+                state = state,
             )
 
 
@@ -85,9 +86,11 @@ fun correctnessOfWord(userWord: String): Boolean { //checking did user wrie the 
 fun MineTextButton(
     modifier: Modifier = Modifier,
     viewModel: GuessTheChampViewModel,
-    state: GuessTheChampState
+    state: GuessTheChampState,
 ){
     var showDialog by remember { mutableStateOf(false) }
+
+
     if (showDialog) {
         GameOver(
             onClose = { showDialog = false },
@@ -104,16 +107,16 @@ fun MineTextButton(
                 shape = RoundedCornerShape(4.dp)
             ),
         onClick = {
-            state.correctResult = correctnessOfWord(state.userWord)
+            state.correctResult = correctnessOfWord(state.userWord.toString())
             if(state.correctResult){
-                viewModel.onEvent(GuessTheChampEvents.CheckResult(state.userWord))
+                viewModel.onEvent(GuessTheChampEvents.CheckResult(state.userWord.toString()))
                 //animation for showing game over if state.guess == 0
                 if(state.guess.equals(0)) {
-                    showDialog = true
-                    viewModel.onEvent(GuessTheChampEvents.ScoreInGame(false))//this will be transfered to game over after cxlicking play again
+                    showDialog = true//this will be transfered to game over after cxlicking play again
                 }
-                state.userWord = viewModel.startingWord(state.lengthOfWord) //checking
+                //state.userWord = viewModel.startingWord(state.lengthOfWord) //checking
             }
+            //viewModel.updateNewWordLength(state.lengthOfWord)
         },
         colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
 

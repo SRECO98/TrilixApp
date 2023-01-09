@@ -1,5 +1,6 @@
 package com.example.lolguessquiz.presentation.main_screen
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -15,6 +16,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -39,88 +42,100 @@ fun MainScreen(
     viewModel: MainScreenViewModel = hiltViewModel()
 ) {
     val state = viewModel.state
-    Scaffold(
-        topBar = {
-            AppTopBar(modifier)
-        },
-        modifier = modifier.padding(8.dp),
-    )  {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = modifier
-        ) {
-            RowQuiz(
-                onClick = {
-                    viewModel.state.quiz = AppNamesOfQuizes.quizGuessChamp
-                    navigator.navigate(
-                        GuessTheChampScreenDestination()
-                    )
-                },
-                modifier = modifier,
-                nameOfQuiz = AppNamesOfQuizes.quizGuessChamp,
-                maxResult = state.scores?.score,
-            )
+    
+    Box {
+        Image(
+            modifier = Modifier.fillMaxSize(),
+            painter = painterResource(id = R.drawable.image),
+            contentDescription = "background_image",
+            contentScale = ContentScale.FillBounds
+        )
 
-            RowQuiz(
-                onClick = {
-                    viewModel.state.quiz = AppNamesOfQuizes.quizGuessChamp
-                    /*navigator.navigate(
-                        GuessTheChampScreenDestination()
-                    )*/
-                },
-                modifier = modifier,
-                nameOfQuiz = AppNamesOfQuizes.quizGuessPassive,
-                maxResult = state.scores?.score,
-            )
-
-            RowQuiz(
-                onClick = {
-                    viewModel.state.quiz = AppNamesOfQuizes.quizGuessChamp
-                    /*navigator.navigate(
-                        GuessTheChampScreenDestination()
-                    )*/
-                },
-                modifier = modifier,
-                nameOfQuiz = AppNamesOfQuizes.quizGuessChampBySpellPicture,
-                maxResult = state.scores?.score,
-            )
-
-            RowQuiz(
-                onClick = {
-                    viewModel.state.quiz = AppNamesOfQuizes.quizGuessChamp
-                    /*navigator.navigate(
-                        GuessTheChampScreenDestination()
-                    )*/
-                },
-                modifier = modifier,
-                nameOfQuiz = AppNamesOfQuizes.quizGuessTheSpellName,
-                maxResult = state.scores?.score,
-            )
-
-            TextButton(
-                onClick = {
-                    val activity: MainActivity = MainActivity()
-                    activity.finish()
-                    System.exit(0)
-                },
+        Scaffold(
+            backgroundColor = Color.Transparent,
+            topBar = {
+                AppTopBar(modifier)
+            },
+            modifier = modifier.padding(8.dp),
+        )  {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = modifier
-                    .clip(RoundedCornerShape(16.dp))
-                    .background(color = ScoreModel.noteColors.random())
-                    .border(2.dp, color = Color.Black, RoundedCornerShape(16.dp))
             ) {
-                Text(
-                    text = stringResource(id = R.string.exit_game),
-                    modifier = modifier
-                        .padding(4.dp),
-                    textAlign = TextAlign.Center,
-                    fontSize = 14.sp,
-                    color = Color.Black,
+                RowQuiz(
+                    onClick = {
+                        viewModel.state.quiz = AppNamesOfQuizes.quizGuessChamp
+                        navigator.navigate(
+                            GuessTheChampScreenDestination()
+                        )
+                    },
+                    modifier = modifier,
+                    nameOfQuiz = AppNamesOfQuizes.quizGuessChamp,
+                    maxResult = state.scores?.score,
                 )
-            }
-        }
 
+                RowQuiz(
+                    onClick = {
+                        viewModel.state.quiz = AppNamesOfQuizes.quizGuessChamp
+                        navigator.navigate(
+                            GuessTheChampScreenDestination()
+                        )
+                    },
+                    modifier = modifier,
+                    nameOfQuiz = AppNamesOfQuizes.quizGuessPassive,
+                    maxResult = state.scores?.score,
+                )
+
+                RowQuiz(
+                    onClick = {
+                        viewModel.state.quiz = AppNamesOfQuizes.quizGuessChamp
+                        navigator.navigate(
+                            GuessTheChampScreenDestination()
+                        )
+                    },
+                    modifier = modifier,
+                    nameOfQuiz = AppNamesOfQuizes.quizGuessChampBySpellPicture,
+                    maxResult = state.scores?.score,
+                )
+
+                RowQuiz(
+                    onClick = {
+                        viewModel.state.quiz = AppNamesOfQuizes.quizGuessChamp
+                        navigator.navigate(
+                            GuessTheChampScreenDestination()
+                        )
+                    },
+                    modifier = modifier,
+                    nameOfQuiz = AppNamesOfQuizes.quizGuessTheSpellName,
+                    maxResult = state.scores?.score,
+                )
+
+                TextButton(
+                    onClick = {
+                        val activity: MainActivity = MainActivity()
+                        activity.finish()
+                        System.exit(0)
+                    },
+                    modifier = modifier
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(color = ScoreModel.noteColors.random())
+                        .border(2.dp, color = Color.Black, RoundedCornerShape(16.dp))
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.exit_game),
+                        modifier = modifier
+                            .padding(4.dp),
+                        textAlign = TextAlign.Center,
+                        fontSize = 14.sp,
+                        color = Color.Black,
+                    )
+                }
+            }
+
+        }
     }
 }
+
 
 @Composable
 fun AppTopBar(
