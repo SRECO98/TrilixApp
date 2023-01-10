@@ -7,10 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowForward
 import androidx.compose.runtime.Composable
@@ -41,76 +38,46 @@ fun RowQuiz(
     onClick: () -> Unit = {},
 ) {
     Box(
-        contentAlignment = Alignment.Center,
         modifier = Modifier
-            .clip(RoundedCornerShape(12.dp))
-            .border(2.dp, color = Color.Black, RoundedCornerShape(16.dp))
-            .height(80.dp)
-            .fillMaxWidth()
+            .height(100.dp)
+            .fillMaxWidth(),
     ){
+
         Image(
             modifier = Modifier.fillMaxSize(),
-            painter = painterResource(id = R.drawable.button2),
+            painter = painterResource(id = R.drawable.button),
             contentDescription = "button_image",
             contentScale = ContentScale.FillBounds
         )
 
-        Row(
+        Button(
             modifier = modifier
-                .fillMaxWidth()
-                .height(150.dp)
-                .padding(start = 16.dp, end = 16.dp)
-        ){
-
-            Spacer(modifier = modifier.width(8.dp))
-
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxHeight())
-            {
-                Text(
-                    text = nameOfQuiz,
-                    modifier = modifier
-                        .padding(4.dp)
-                        .wrapContentHeight(),
-                    textAlign = TextAlign.Start,
-                    fontSize = 18.sp,
-                    fontFamily = FontFamily.SansSerif
-                )
-            }
-
-
-            Spacer(modifier = modifier.weight(1f))
-
-
-            IconButton(
-                modifier = modifier.padding(end = 8.dp),
-                onClick = onClick,
+                .fillMaxWidth(),
+            onClick = onClick,
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxSize().wrapContentHeight()
             ) {
-                Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxHeight())
-                {
-                    Icon(
-                        imageVector = Icons.Rounded.ArrowForward,
-                        contentDescription = null,
+                    Text(
+                        text = nameOfQuiz,
+                        modifier = modifier
+                            .wrapContentHeight().fillMaxHeight(),
+                        textAlign = TextAlign.Center,
+                        fontSize = 12.sp,
+                        fontFamily = FontFamily.SansSerif,
+                        color = Color.White,
                     )
-                }
-            }
-        }
 
-        Box(
-            modifier = modifier
-                .padding(top = 47.dp, bottom = 47.dp, start = 16.dp)
-                .size(56.dp)
-                .clip(CircleShape)
-                .background(Color.LightGray)
-                .border(2.dp, color = Color.Black, RoundedCornerShape(16.dp))
-        ){
-            Text(
-                modifier = modifier.padding(start = 16.dp, top = 16.dp),
-                text = maxResult.toString(),
-                textAlign = TextAlign.Center,
-                fontSize = 14.sp,
-                color = Color.Black,
-            )
+                    Text(
+                        modifier = modifier.padding(start = 16.dp, top = 16.dp).fillMaxHeight(),
+                        text = maxResult.toString(),
+                        textAlign = TextAlign.End,
+                        fontSize = 28.sp,
+                        color = Color.White,
+                    )
+            }
         }
     }
-
 }

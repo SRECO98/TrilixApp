@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
@@ -30,6 +31,7 @@ import com.example.lolguessquiz.MainActivity
 import com.example.lolguessquiz.R
 import com.example.lolguessquiz.domain.model.ScoreModel
 import com.example.lolguessquiz.presentation.destinations.GuessTheChampScreenDestination
+import com.example.lolguessquiz.ui.theme.Shapes
 import com.example.lolguessquiz.util.AppNamesOfQuizes
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -53,7 +55,7 @@ fun MainScreen(
 
         Scaffold(
             backgroundColor = Color.Transparent,
-            modifier = modifier.padding(8.dp),
+            modifier = modifier,
         )  {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -66,43 +68,43 @@ fun MainScreen(
                             GuessTheChampScreenDestination()
                         )
                     },
-                    modifier = modifier.padding(top = 16.dp),
+                    modifier = modifier.padding(start = 24.dp, end = 24.dp).clip(RoundedCornerShape(22.dp)),
                     nameOfQuiz = AppNamesOfQuizes.quizGuessChamp,
                     maxResult = state.scores?.score,
                 )
-
+                Spacer(modifier = modifier.height(16.dp))
                 RowQuiz(
                     onClick = {
                         viewModel.state.quiz = AppNamesOfQuizes.quizGuessChamp
-                        navigator.navigate(
+                        /*navigator.navigate(
                             GuessTheChampScreenDestination()
-                        )
+                        )*/
                     },
-                    modifier = modifier.padding(top = 16.dp),
+                    modifier = modifier.padding(start = 24.dp, end = 24.dp).clip(RoundedCornerShape(22.dp)),
                     nameOfQuiz = AppNamesOfQuizes.quizGuessPassive,
                     maxResult = state.scores?.score,
                 )
-
+                Spacer(modifier = modifier.height(16.dp))
                 RowQuiz(
                     onClick = {
                         viewModel.state.quiz = AppNamesOfQuizes.quizGuessChamp
-                        navigator.navigate(
+                        /*navigator.navigate(
                             GuessTheChampScreenDestination()
-                        )
+                        )*/
                     },
-                    modifier = modifier.padding(top = 16.dp),
+                    modifier = modifier.padding(start = 24.dp, end = 24.dp).clip(RoundedCornerShape(22.dp)),
                     nameOfQuiz = AppNamesOfQuizes.quizGuessChampBySpellPicture,
                     maxResult = state.scores?.score,
                 )
-
+                Spacer(modifier = modifier.height(16.dp))
                 RowQuiz(
                     onClick = {
                         viewModel.state.quiz = AppNamesOfQuizes.quizGuessChamp
-                        navigator.navigate(
+                       /* navigator.navigate(
                             GuessTheChampScreenDestination()
-                        )
+                        )*/
                     },
-                    modifier = modifier.padding(top = 16.dp),
+                    modifier = modifier.padding(start = 24.dp, end = 24.dp).clip(RoundedCornerShape(22.dp)),
                     nameOfQuiz = AppNamesOfQuizes.quizGuessTheSpellName,
                     maxResult = state.scores?.score,
                 )
