@@ -29,8 +29,6 @@ fun MineBasicTextField(
     value: String,
     onValueChanged: (String) -> Unit
 ) {
-    val maxChars = 1
-
     BasicTextField(
         value = value,
         modifier = modifier

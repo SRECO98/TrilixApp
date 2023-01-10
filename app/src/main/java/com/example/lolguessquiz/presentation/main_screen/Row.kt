@@ -1,5 +1,6 @@
 package com.example.lolguessquiz.presentation.main_screen
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -17,6 +18,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -41,33 +44,23 @@ fun RowQuiz(
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .clip(RoundedCornerShape(12.dp))
-            .background(color = BackgroundMine)
             .border(2.dp, color = Color.Black, RoundedCornerShape(16.dp))
-            .padding(top = 8.dp, bottom = 8.dp)
+            .height(80.dp)
+            .fillMaxWidth()
     ){
+        Image(
+            modifier = Modifier.fillMaxSize(),
+            painter = painterResource(id = R.drawable.button2),
+            contentDescription = "button_image",
+            contentScale = ContentScale.FillBounds
+        )
+
         Row(
             modifier = modifier
                 .fillMaxWidth()
                 .height(150.dp)
                 .padding(start = 16.dp, end = 16.dp)
-                .background(ScoreModel.noteColors.random())
         ){
-            Box(
-                modifier = modifier
-                    .padding(top = 47.dp, bottom = 47.dp, start = 16.dp)
-                    .size(56.dp)
-                    .clip(CircleShape)
-                    .background(Color.LightGray)
-                    .border(2.dp, color = Color.Black, RoundedCornerShape(16.dp))
-            ){
-                Text(
-                    modifier = modifier.padding(start = 16.dp, top = 16.dp),
-                    text = maxResult.toString(),
-                    textAlign = TextAlign.Center,
-                    fontSize = 14.sp,
-                    color = Color.Black,
-                )
-            }
 
             Spacer(modifier = modifier.width(8.dp))
 
@@ -100,6 +93,23 @@ fun RowQuiz(
                     )
                 }
             }
+        }
+
+        Box(
+            modifier = modifier
+                .padding(top = 47.dp, bottom = 47.dp, start = 16.dp)
+                .size(56.dp)
+                .clip(CircleShape)
+                .background(Color.LightGray)
+                .border(2.dp, color = Color.Black, RoundedCornerShape(16.dp))
+        ){
+            Text(
+                modifier = modifier.padding(start = 16.dp, top = 16.dp),
+                text = maxResult.toString(),
+                textAlign = TextAlign.Center,
+                fontSize = 14.sp,
+                color = Color.Black,
+            )
         }
     }
 

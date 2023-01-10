@@ -9,4 +9,5 @@ data class GuessTheChampState (
     var lengthOfWord: Int = 0,
     var correctResult: Boolean = false,
     var userWord: Array<String> = emptyArray(),
+    var maxChar: Int = 0,
 )

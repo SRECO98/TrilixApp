@@ -32,17 +32,20 @@ class GuessTheChampViewModel @Inject constructor(
     fun onEvent(event: GuessTheChampEvents){
         when(event){
             is GuessTheChampEvents.CheckResult -> {
-                //getting normal string because function toString returns string in [] and its not same.
-                val string =  buildString { for (s in state.userWord) append(s) }
-                if (string.equals(state.nameOfChamp.uppercase(Locale.getDefault()))){
-                    updateScoreOnScreen(true)
-                    getChampionPicture()
-                    state.guess = 3
-                }else{
-                    state.guess -= 1
-                    if(state.guess == 0){
-                        updateScoreOnScreen(false)
+                if(state.maxChar == 0){
+                    //getting normal string because function toString returns string in [] and its not same.
+                    val string =  buildString { for (s in state.userWord) append(s) }
+                    if (string.uppercase().equals(state.nameOfChamp.uppercase(Locale.getDefault()))){
+                        updateScoreOnScreen(true)
+                        getChampionPicture()
+                        state.guess = 3
+                    }else{
+                        state.guess -= 1
+                        if(state.guess == 0){
+                            updateScoreOnScreen(false)
+                        }
                     }
+                    state.maxChar += 1
                 }
             }
             is GuessTheChampEvents.onTextChange -> {
@@ -50,10 +53,6 @@ class GuessTheChampViewModel @Inject constructor(
                 state = state.copy(
                     userWord = newValue
                 )
-                val str1 = state.userWord.get(0)
-                val str2 = state.userWord.get(1)
-                val str3 = state.userWord.get(2)
-                val str4 = state.userWord.get(3)
             }
         }
     }

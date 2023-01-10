@@ -46,21 +46,18 @@ fun MainScreen(
     Box {
         Image(
             modifier = Modifier.fillMaxSize(),
-            painter = painterResource(id = R.drawable.image),
+            painter = painterResource(id = R.drawable.background),
             contentDescription = "background_image",
             contentScale = ContentScale.FillBounds
         )
 
         Scaffold(
             backgroundColor = Color.Transparent,
-            topBar = {
-                AppTopBar(modifier)
-            },
             modifier = modifier.padding(8.dp),
         )  {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = modifier
+                modifier = modifier.padding(top = 280.dp)
             ) {
                 RowQuiz(
                     onClick = {
@@ -69,7 +66,7 @@ fun MainScreen(
                             GuessTheChampScreenDestination()
                         )
                     },
-                    modifier = modifier,
+                    modifier = modifier.padding(top = 16.dp),
                     nameOfQuiz = AppNamesOfQuizes.quizGuessChamp,
                     maxResult = state.scores?.score,
                 )
@@ -81,7 +78,7 @@ fun MainScreen(
                             GuessTheChampScreenDestination()
                         )
                     },
-                    modifier = modifier,
+                    modifier = modifier.padding(top = 16.dp),
                     nameOfQuiz = AppNamesOfQuizes.quizGuessPassive,
                     maxResult = state.scores?.score,
                 )
@@ -93,7 +90,7 @@ fun MainScreen(
                             GuessTheChampScreenDestination()
                         )
                     },
-                    modifier = modifier,
+                    modifier = modifier.padding(top = 16.dp),
                     nameOfQuiz = AppNamesOfQuizes.quizGuessChampBySpellPicture,
                     maxResult = state.scores?.score,
                 )
@@ -105,68 +102,11 @@ fun MainScreen(
                             GuessTheChampScreenDestination()
                         )
                     },
-                    modifier = modifier,
+                    modifier = modifier.padding(top = 16.dp),
                     nameOfQuiz = AppNamesOfQuizes.quizGuessTheSpellName,
                     maxResult = state.scores?.score,
                 )
-
-                TextButton(
-                    onClick = {
-                        val activity: MainActivity = MainActivity()
-                        activity.finish()
-                        System.exit(0)
-                    },
-                    modifier = modifier
-                        .clip(RoundedCornerShape(16.dp))
-                        .background(color = ScoreModel.noteColors.random())
-                        .border(2.dp, color = Color.Black, RoundedCornerShape(16.dp))
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.exit_game),
-                        modifier = modifier
-                            .padding(4.dp),
-                        textAlign = TextAlign.Center,
-                        fontSize = 14.sp,
-                        color = Color.Black,
-                    )
-                }
             }
-
         }
-    }
-}
-
-
-@Composable
-fun AppTopBar(
-    modifier: Modifier = Modifier
-) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .background(Color.Black)
-            .height(56.dp)
-    ) {
-        Icon(
-            modifier = modifier
-                .fillMaxHeight()
-                .wrapContentHeight()
-                .padding(start = 8.dp),
-            imageVector = Icons.Rounded.Menu,
-            contentDescription = null,
-            tint = Color.White
-        )
-        Spacer(modifier = Modifier.width(110.dp))
-        Text(
-            modifier = modifier
-                .fillMaxHeight()
-                .wrapContentHeight(),
-            text = stringResource(id = R.string.app_real_name),
-            fontSize = 26.sp,
-            textAlign = TextAlign.Center,
-            color = Color.White,
-            fontWeight = FontWeight.Bold,
-            letterSpacing = 4.sp
-        )
     }
 }
