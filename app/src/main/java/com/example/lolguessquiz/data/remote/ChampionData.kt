@@ -25,7 +25,7 @@ val listOfChampionNames: List<String> = listOf(
 "Corki",
 "Darius",
 "Diana",
-"Drmundo",
+"DrMundo",
 "Draven",
 "Ekko",
 "Elise",
@@ -146,3 +146,30 @@ val listOfChampionNames: List<String> = listOf(
 "Zoe",
 "Zyra"
 )
+
+fun getCorrectFullName(champName: String): String{
+    when(champName){
+        "Chogath" -> {
+            return "Cho'Gath"
+        }
+        "DrMundo" -> {
+            return "Dr.Mundo"
+        }
+        "Kaisa" -> {
+            return "Kai'Sa"
+        }
+        "Khazix" -> {
+            return "Kha'Zixs"
+        }
+        "KogMaw" -> {
+            return "Kog'Maw"
+        }
+        "RekSai" -> {
+            return "Rek'Sai"
+        }
+        "Velkoz" -> {
+            return "Vel'Koz"
+        }
+        else -> return ""
+    }
+}

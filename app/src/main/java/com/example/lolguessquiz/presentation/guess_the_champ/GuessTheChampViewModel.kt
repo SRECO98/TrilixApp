@@ -4,6 +4,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.text.toUpperCase
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.lolguessquiz.data.remote.ChampionPassive
+import com.example.lolguessquiz.data.remote.getCorrectFullName
 import com.example.lolguessquiz.data.remote.listOfChampionNames
 import com.example.lolguessquiz.domain.repository.QuizRepository
 import com.example.lolguessquiz.presentation.game_over.GameOver
@@ -51,7 +53,7 @@ class GuessTheChampViewModel @Inject constructor(
             is GuessTheChampEvents.onTextChange -> {
                 val newValue = state.userWord.copyOfRange(0, event.index - 1) + event.newString + state.userWord.copyOfRange(event.index, state.userWord.size)
                 state = state.copy(
-                    userWord = newValue
+                    userWord = newValue,
                 )
             }
         }
@@ -60,16 +62,19 @@ class GuessTheChampViewModel @Inject constructor(
     //Calling function for getting link for picture of random champ.
     fun getChampionPicture(){
         viewModelScope.launch() {
-            val champion = repository.getChampionName()
+            var champion = repository.getChampionName()
             val picture = repository.getChampionPicture(nameOfChamp = champion)
+            state = state.copy(
+                link = picture,
+                guess = 3,
+            )
+            champion = correctingNameOfChampion(champion = champion)
             val lengthOfWord = champion.length
             val startingWord: Array<String> = getStartingWord(champion.length)
             state = state.copy(
-                link = picture,
+                userWord = startingWord,
                 nameOfChamp = champion,
                 lengthOfWord = lengthOfWord,
-                guess = 3,
-                userWord = startingWord,
             )
         }
     }
@@ -77,9 +82,13 @@ class GuessTheChampViewModel @Inject constructor(
     fun updateScoreOnScreen(boolean: Boolean){
         if(boolean){
             val score = state.currentScoreInGame + 1
+            val st = score
+            val st2 = score
             state = state.copy(
                 currentScoreInGame = score
             )
+            val st22 = state.currentScoreInGame
+            val st222 = state.currentScoreInGame
         }else{
             val score = 0
             state = state.copy(
@@ -91,6 +100,13 @@ class GuessTheChampViewModel @Inject constructor(
     fun getStartingWord(length: Int): Array<String>{
         val array = Array(length){""}
         return array
+    }
+
+    fun correctingNameOfChampion(champion: String): String{
+        if(champion == "Chogath" || champion == "DrMundo" || champion == "Kaisa" || champion == "Khazix" || champion == "KogMaw" || champion == "RekSai" || champion == "Velkoz") {
+            return getCorrectFullName(champName = champion)
+        }
+        return champion
     }
 
 }

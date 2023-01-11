@@ -28,6 +28,16 @@ fun GuessTheChampScreen(
     viewModel: GuessTheChampViewModel = hiltViewModel()
 ) {
     val state = viewModel.state
+    var showDialog by remember { mutableStateOf(false) }
+    var score by remember { mutableStateOf(state.currentScoreInGame) }
+
+    if (showDialog) {
+        GameOver(
+            onClose = { showDialog = false },
+            state = state
+        )
+    }
+
 
     Scaffold(
         topBar = {
@@ -41,9 +51,9 @@ fun GuessTheChampScreen(
         )  {
 
             Text(
-                text = state.currentScoreInGame.toString(),
+                text = score.toString(),
                 fontSize = 32.sp,
-                modifier = modifier.padding(top = 32.dp)
+                modifier = modifier.padding(top = 32.dp),
             )
 
             Box(
@@ -59,74 +69,44 @@ fun GuessTheChampScreen(
                 viewModel = viewModel,
             )
 
-            MineTextButton(
-                modifier = modifier,
-                viewModel = viewModel,
-                state = state,
-            )
+            TextButton(
+                modifier = modifier
+                    .padding(start = 50.dp, end = 50.dp)
+                    .border(
+                        width = 2.dp,
+                        brush = Brush.verticalGradient(listOf(Color.Black, Color.DarkGray)),
+                        shape = RoundedCornerShape(4.dp)
+                    ),
+                onClick = {
+                    state.correctResult = correctnessOfWord(state.userWord.toString())
+                    if(state.correctResult){
+                        viewModel.onEvent(GuessTheChampEvents.CheckResult(state.userWord.toString()))
+                        //animation for showing game over if state.guess == 0
+                        if(state.guess == 0) {
+                            showDialog = true//this will be transfered to game over after cxlicking play again
+                        }
+                        score = state.currentScoreInGame
+                    }
+                },
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
 
-
+                ) {
+                Text(
+                    text = stringResource(id = R.string.next),
+                    textAlign = TextAlign.Center,
+                    fontSize = 14.sp,
+                    color = Color.DarkGray,
+                )
+            }
         }
     }
 }
 
 fun correctnessOfWord(userWord: String): Boolean { //checking did user wrie the result correctly and is there any empty field.
-    var i: Int = 1
     userWord.forEach {
-        if (it.code == i || it.equals(null)){ // we are checking numbers because deafault value for every field are numbers from 1 - lengthOfResult.
+        if (it.equals(null)){ // we are checking numbers because deafault value for every field are numbers from 1 - lengthOfResult.
             return false
-        }else{
-            i++
         }
     }
     return true
 }
-
-@Composable
-fun MineTextButton(
-    modifier: Modifier = Modifier,
-    viewModel: GuessTheChampViewModel,
-    state: GuessTheChampState,
-){
-    var showDialog by remember { mutableStateOf(false) }
-
-
-    if (showDialog) {
-        GameOver(
-            onClose = { showDialog = false },
-            state = state
-        )
-    }
-
-    TextButton(
-        modifier = modifier
-            .padding(start = 50.dp, end = 50.dp)
-            .border(
-                width = 2.dp,
-                brush = Brush.verticalGradient(listOf(Color.Black, Color.DarkGray)),
-                shape = RoundedCornerShape(4.dp)
-            ),
-        onClick = {
-            state.correctResult = correctnessOfWord(state.userWord.toString())
-            if(state.correctResult){
-                viewModel.onEvent(GuessTheChampEvents.CheckResult(state.userWord.toString()))
-                //animation for showing game over if state.guess == 0
-                if(state.guess.equals(0)) {
-                    showDialog = true//this will be transfered to game over after cxlicking play again
-                }
-                //state.userWord = viewModel.startingWord(state.lengthOfWord) //checking
-            }
-            //viewModel.updateNewWordLength(state.lengthOfWord)
-        },
-        colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
-
-        ) {
-        Text(
-            text = stringResource(id = R.string.next),
-            textAlign = TextAlign.Center,
-            fontSize = 14.sp,
-            color = Color.DarkGray,
-        )
-    }
-}
-
