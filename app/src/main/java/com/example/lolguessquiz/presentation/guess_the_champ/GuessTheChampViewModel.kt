@@ -34,28 +34,37 @@ class GuessTheChampViewModel @Inject constructor(
     fun onEvent(event: GuessTheChampEvents){
         when(event){
             is GuessTheChampEvents.CheckResult -> {
-                //if(state.maxChar == 0){
-                    //getting normal string because function toString returns string in [] and its not same.
-                    val string =  buildString { for (s in state.userWord) append(s) }
-                    if (string.uppercase().equals(state.nameOfChamp.uppercase(Locale.getDefault()))){
-                        updateScoreOnScreen(true)
-                        getChampionPicture()
-                        state.guess = 3
-                    }else{
-                        state.guess -= 1
-                        if(state.guess == 0){
-                            updateScoreOnScreen(false)
-                        }
+                //getting normal string because function toString returns string in [] and its not same.
+                val string =  buildString { for (s in state.userWord) append(s) }
+                if (string.uppercase().equals(state.nameOfChamp.uppercase(Locale.getDefault()))){
+                    updateScoreOnScreen(true)
+                    getChampionPicture()
+                    state.guess = 3
+                }else{
+                    state.guess -= 1
+                    if(state.guess == 0){
+                        updateScoreOnScreen(false)
                     }
-                    //state.maxChar += 1
-                //}
+                }
             }
+            //updating value of state for text field.
             is GuessTheChampEvents.onTextChange -> {
+                if((state.maxChar[event.index - 1].toInt() + 1) > 1 && event.newString != ""){
+                    return
+                }
                 val newValue = state.userWord.copyOfRange(0, event.index - 1) + event.newString + state.userWord.copyOfRange(event.index, state.userWord.size)
+                var newCharValue: Array<String> = emptyArray()
+                if(newValue[event.index - 1].equals("")){
+                    newCharValue = state.maxChar.copyOfRange(0, event.index - 1) + "0" + state.maxChar.copyOfRange(event.index, state.maxChar.size)
+                }else{
+                    newCharValue = state.maxChar.copyOfRange(0, event.index - 1) + "1" + state.maxChar.copyOfRange(event.index, state.maxChar.size)
+                }
                 state = state.copy(
                     userWord = newValue,
+                    maxChar = newCharValue,
                 )
             }
+            ////////////////////////////////////////////
         }
     }
 
@@ -71,8 +80,10 @@ class GuessTheChampViewModel @Inject constructor(
             champion = correctingNameOfChampion(champion = champion)
             val lengthOfWord = champion.length
             val startingWord: Array<String> = getStartingWord(champion.length)
+            val maxChars = getStartingMaxChars(champion.length)
             state = state.copy(
                 userWord = startingWord,
+                maxChar = maxChars,
                 nameOfChamp = champion,
                 lengthOfWord = lengthOfWord,
             )
@@ -99,6 +110,10 @@ class GuessTheChampViewModel @Inject constructor(
 
     fun getStartingWord(length: Int): Array<String>{
         val array = Array(length){""}
+        return array
+    }
+    fun getStartingMaxChars(length: Int): Array<String>{
+        val array = Array(length){"0"}
         return array
     }
 
