@@ -1,23 +1,17 @@
 package com.example.lolguessquiz.presentation.guess_the_champ
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.lolguessquiz.R
 import com.example.lolguessquiz.presentation.game_over.GameOver
-import com.example.lolguessquiz.presentation.guess_the_champ.components.TextFieldsForWord
 import com.example.lolguessquiz.presentation.guess_the_champ.components.CoilImage
+import com.example.lolguessquiz.presentation.guess_the_champ.components.MineTextButton
+import com.example.lolguessquiz.presentation.guess_the_champ.components.TextFieldsForWord
 import com.example.lolguessquiz.presentation.guess_the_champ.components.TopAppBarGuessChamp
 import com.ramcosta.composedestinations.annotation.Destination
 
@@ -29,7 +23,6 @@ fun GuessTheChampScreen(
 ) {
     val state = viewModel.state
     var showDialog by remember { mutableStateOf(false) }
-    var score by remember { mutableStateOf(state.currentScoreInGame) }
 
     if (showDialog) {
         GameOver(
@@ -37,7 +30,6 @@ fun GuessTheChampScreen(
             state = state
         )
     }
-
 
     Scaffold(
         topBar = {
@@ -51,7 +43,7 @@ fun GuessTheChampScreen(
         )  {
 
             Text(
-                text = score.toString(),
+                text = state.currentScoreInGame.toString(),
                 fontSize = 32.sp,
                 modifier = modifier.padding(top = 32.dp),
             )
@@ -69,15 +61,9 @@ fun GuessTheChampScreen(
                 viewModel = viewModel,
             )
 
-            TextButton(
-                modifier = modifier
-                    .padding(start = 50.dp, end = 50.dp)
-                    .border(
-                        width = 2.dp,
-                        brush = Brush.verticalGradient(listOf(Color.Black, Color.DarkGray)),
-                        shape = RoundedCornerShape(4.dp)
-                    ),
-                onClick = {
+            MineTextButton(
+                modifier = modifier,
+                onCLick = {
                     state.correctResult = correctnessOfWord(state.userWord.toString())
                     if(state.correctResult){
                         viewModel.onEvent(GuessTheChampEvents.CheckResult(state.userWord.toString()))
@@ -85,19 +71,9 @@ fun GuessTheChampScreen(
                         if(state.guess == 0) {
                             showDialog = true//this will be transfered to game over after cxlicking play again
                         }
-                        score = state.currentScoreInGame
                     }
-                },
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
-
-                ) {
-                Text(
-                    text = stringResource(id = R.string.next),
-                    textAlign = TextAlign.Center,
-                    fontSize = 14.sp,
-                    color = Color.DarkGray,
-                )
-            }
+                }
+            )
         }
     }
 }

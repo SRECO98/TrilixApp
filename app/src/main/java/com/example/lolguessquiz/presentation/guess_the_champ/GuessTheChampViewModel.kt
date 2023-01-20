@@ -93,13 +93,9 @@ class GuessTheChampViewModel @Inject constructor(
     fun updateScoreOnScreen(boolean: Boolean){
         if(boolean){
             val score = state.currentScoreInGame + 1
-            val st = score
-            val st2 = score
             state = state.copy(
                 currentScoreInGame = score
             )
-            val st22 = state.currentScoreInGame
-            val st222 = state.currentScoreInGame
         }else{
             val score = 0
             state = state.copy(
